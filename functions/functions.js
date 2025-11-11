@@ -3,29 +3,36 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 })
+let qtdN;
+let Numeros = [];
+
+//ok, aqui eu precisei de muita ajuda, mas deu certo
+//gemini salvando
+/**
+ * @returns {promise<number>}*/
 
 function qtdNs() {
-    try {
-    rl.question('Quantos numeros deseja ordenar? ', (qtdN) => {
-    console.log(qtdN);
-    rl.close();
-    //precisei de ajuda com esse isNan
-    if(!qtdN || isNaN(qtdN) || qtdN <= 0){
-        throw new Error('Inválido! Por favor, digite um número positivo (0 excluso).')
-    }else{
-        return qtdN;
-    }
-} );
-    } catch (error) {
-        console.error("Erro :", error.message);
-    }
-
+    return new Promise((resolve, reject) =>{
+        rl.question('Quantos numeros deseja ordenar? ', (resposta) => {
+            qtdN = parseInt(resposta.trim());
+            //console.log(resposta);
+            rl.close();
+            if(!qtdN || isNaN(qtdN) || qtdN <= 0){
+                return reject("Valor inválido!");
+            }else{
+                return resolve(qtdN);
+            }
+        })
+    })
 }
 //arrumar depois, preciso ver a doc do return para return como int
 function digitar(qtdN){
     for(var i = 0; i <= qtdN; i++){
-        rl.question("Por favor, digite o ", i + 1, " número:", (Numero))
-        console.log(Numero)
+        rl.question("Por favor, digite o ", i + 1, " número:", (Numero) =>{
+            console.log(Numero);
+            Numeros[i] = Numero;
+        });
     }
+    return Numeros;
 }
-module.exports = {qtdNs, digitar};
+module.exports = {qtdNs, digitar, qtdN, Numeros};
