@@ -25,14 +25,47 @@ function qtdNs() {
         })
     })
 }
-//arrumar depois, preciso ver a doc do return para return como int
-function digitar(qtdN){
-    for(var i = 0; i <= qtdN; i++){
-        rl.question("Por favor, digite o ", i + 1, " número:", (Numero) =>{
-            console.log(Numero);
-            Numeros[i] = Numero;
-        });
-    }
-    return Numeros;
+
+
+//basicamente, a partir daqui está tudo errado
+//pedir ajuda para o gemini depois, porquê não tem como
+/***
+ * @param {number} qtdN
+ * @returns {promise<Array<number>>}
+ */
+async function digitar(qtdN){
+        for(var i = 0; i < qtdN; i++){
+            const texto = "Agora digite estes por favor"
+            const resposta = await pergunta(texto);
+        }
 }
-module.exports = {qtdNs, digitar, qtdN, Numeros};
+
+function teste(Numeros){
+    for(i = 0; i<= Numeros; i++){console.log(Numeros[i]);}
+}
+
+/***
+ * @param {string} texto
+ * @returns {promise<number>}
+ */
+//dei uma adiantada e fui vendo oque o gemini respondeu
+//então utilizei o código que o mesmo mandou
+//muito mais limpo
+function pergunta(texto){
+    return new Promise((resolve) => {
+        rl.question(texto, (resposta) => {
+            const numero = ParseInt(resposta.trim());
+
+            if(isNaN(numero)){
+                console.log("Entrada inválida, tente novamente.")
+                resolve(numero);
+            }else{
+                resolve(numero);
+            }
+
+        })
+    })
+
+}
+
+module.exports = {qtdNs, digitar, teste, qtdN, Numeros};

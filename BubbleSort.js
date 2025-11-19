@@ -6,6 +6,11 @@ const functions = require("./functions/functions.js");
 //ao recrutador que possívelmente estiver lendo isso, eu tive que usar gemini mais de uma vez neste programa
 async function main(){
     const qtdN = await functions.qtdNs();
-    console.log(qtdN);
+    console.log(qtdN, " Números");
+
+    functions.digitar(qtdN);
+
+    functions.teste(functions.Numeros);
+
 }
 main();
