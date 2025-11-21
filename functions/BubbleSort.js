@@ -1,0 +1,17 @@
+/***
+ * @param {Array<Number>} array
+ */
+
+//debuguei com gemini, a lógica bruta foi tirada do livro:
+//estrutura de dados e algoritmos com javascript
+module.exports = async function BubbleSort(array){
+    for(var i = 0; i < array.length; i++){
+        for(var j = 0; j < array.length - 1; j++){
+            if(array[j] > array[j +1]){
+                [array[j], array[j + 1]] = [array[j + 1], array[j]];
+            }
+        } 
+    }
+    return array;
+}
+
