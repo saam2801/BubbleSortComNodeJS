@@ -16,7 +16,7 @@ function qtdNs() {
         rl.question('Quantos numeros deseja ordenar? ', (resposta) => {
             qtdN = parseInt(resposta.trim());
             //console.log(resposta);
-            rl.close();
+            
             if(!qtdN || isNaN(qtdN) || qtdN <= 0){
                 return reject("Valor inválido!");
             }else{
@@ -29,19 +29,25 @@ function qtdNs() {
 
 //basicamente, a partir daqui está tudo errado
 //pedir ajuda para o gemini depois, porquê não tem como
-/***
- * @param {number} qtdN
- * @returns {promise<Array<number>>}
- */
+
 async function digitar(qtdN){
         for(var i = 0; i < qtdN; i++){
-            const texto = "Agora digite estes por favor"
+            const texto = `Agora digite o ${i+1} numero por favor: `
             const resposta = await pergunta(texto);
+            //achar um jeito de tratar essa exceção depois
+            //provavelmente qtdN - i , digitar(qtdN)
+            //if(isNaN(resposta)){}
+            Numeros.push(resposta)
         }
+        return Numeros;
 }
-
-function teste(Numeros){
-    for(i = 0; i<= Numeros; i++){console.log(Numeros[i]);}
+/***
+ * @param {Array<Number>} array
+ */
+function teste(array){
+    for(i = 0; i< array.length; i++){
+        console.log(array[i]);
+    }
 }
 
 /***
@@ -49,13 +55,11 @@ function teste(Numeros){
  * @returns {promise<number>}
  */
 //dei uma adiantada e fui vendo oque o gemini respondeu
-//então utilizei o código que o mesmo mandou
-//muito mais limpo
 function pergunta(texto){
     return new Promise((resolve) => {
         rl.question(texto, (resposta) => {
-            const numero = ParseInt(resposta.trim());
-
+            const numero = parseInt(resposta.trim());
+            
             if(isNaN(numero)){
                 console.log("Entrada inválida, tente novamente.")
                 resolve(numero);
@@ -68,4 +72,4 @@ function pergunta(texto){
 
 }
 
-module.exports = {qtdNs, digitar, teste, qtdN, Numeros};
+module.exports = {qtdNs, digitar, teste, qtdN, Numeros, rl};
